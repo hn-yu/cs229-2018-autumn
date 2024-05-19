@@ -15,6 +15,7 @@ def main(train_path, eval_path, pred_path):
     x_train, y_train = util.load_dataset(train_path, add_intercept=True)
 
     # *** START CODE HERE ***
+    print("i dont know what to do now")
     # *** END CODE HERE ***
 
 
@@ -35,6 +36,15 @@ class LogisticRegression(LinearModel):
             y: Training example labels. Shape (m,).
         """
         # *** START CODE HERE ***
+        m,n = x.shape
+        theta = np.zeros(n)
+        h_theta = np.dot(x, theta)
+        loss = np.linalg.norm(h_theta-y, ord=1)
+        if loss > 1e-5:
+            h_inv = np.linalg.inv(hessian)
+            grad = loss_function, theta #todo
+            theta = theta - np.dot(h_inv, grad)
+        self.theta = theta
         # *** END CODE HERE ***
 
     def predict(self, x):
@@ -47,4 +57,5 @@ class LogisticRegression(LinearModel):
             Outputs of shape (m,).
         """
         # *** START CODE HERE ***
+        return np.dot(self.theta, x)
         # *** END CODE HERE ***
